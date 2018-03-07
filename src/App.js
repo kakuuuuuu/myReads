@@ -16,19 +16,35 @@ class BooksApp extends React.Component {
     status: ''
   }
 
+  /*
+  * Loads when component mounts
+  * fetches books already saved to shelves
+  */
   componentDidMount() {
     BooksAPI.getAll().then((books => {
       this.setState({ books });
     }));
   }
 
-  updateBook = (book, shelf) => {
-    book.shelf = shelf;
-    BooksAPI.update(book.id, book.shelf).then((book) => {
+  /*
+  * Updates book to different shelf
+  * bookToUpdate - Book object being updated
+  * shelf - Shelf book moved to
+  * Updates the book in state.books array
+  */
+  updateBook = (bookToUpdate, shelf) => {
+    bookToUpdate.shelf = shelf;
+    BooksAPI.update(bookToUpdate, shelf).then((book) => {
       this.setState({book});
     });
   }
 
+  /*
+  * Adds book from search to shelf
+  * book - Book retrieved from search
+  * shelf - Shelf book moved to
+  *
+  */
   addBook = (book, shelf) => {
     BooksAPI.get(book.id).then((book) => {
       book.shelf = shelf;
@@ -37,6 +53,7 @@ class BooksApp extends React.Component {
           searchedBooks: [],
           status: ''
         }));
+        this.updateBook(book, shelf);
     });
   }
 
@@ -48,7 +65,7 @@ class BooksApp extends React.Component {
        searchedBooks: [],
        status: "Searching...",
        typing: false,
-       typingTimeout: setTimeout(() => { 
+       typingTimeout: setTimeout(() => {
          if (query.length > 0) {
            BooksAPI.search(query.trim()).then((books) => {
              if (books.error) {
