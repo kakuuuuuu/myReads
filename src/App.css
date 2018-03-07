@@ -172,3 +172,28 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+.book-details-link:hover {
+    opacity: .5;
+}
+
+/* book details */
+
+.book-cover-details {
+  padding: 20px 10px 0;
+  vertical-align: top;
+  display: inline-block;
+  width: 20%;
+}
+.book-details {
+  display: inline-block;
+  width: 70%;
+}
+.close-details {
+  margin: 10px;
+}
+.table-description {
+  vertical-align: top;
+}
+td {
+  padding-left: 20px;
+}
