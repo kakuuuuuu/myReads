@@ -17,6 +17,11 @@ class Search extends Component {
     status: ''
   };
 
+  /*
+  * Updates state.query to match input
+  * query - String used to query search API
+  * Calls onSearch function from props to pass query to parent for use in search API
+  */
   updateQuery = (query) => {
     this.setState({ query });
     this.props.onSearch(query);

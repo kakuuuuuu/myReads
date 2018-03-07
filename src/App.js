@@ -11,7 +11,6 @@ class BooksApp extends React.Component {
   state = {
     books: [],
     searchedBooks: [],
-    typing: false,
     typingTimeOut: 0,
     status: ''
   }
@@ -43,20 +42,27 @@ class BooksApp extends React.Component {
   * Adds book from search to shelf
   * book - Book retrieved from search
   * shelf - Shelf book moved to
-  *
+  * Adds object to state.books array, empties searched books array and status
+  * Calls updateBook function to update the book via API
   */
   addBook = (book, shelf) => {
-    BooksAPI.get(book.id).then((book) => {
-      book.shelf = shelf;
-      this.setState(state => ({
-          books: state.books.concat([ book ]),
-          searchedBooks: [],
-          status: ''
-        }));
-        this.updateBook(book, shelf);
-    });
+    this.setState(state => ({
+        books: state.books.concat([ book ]),
+        searchedBooks: [],
+        status: ''
+      }));
+    this.updateBook(book, shelf);
   }
 
+  /*
+  * Searches books by query
+  * query - String used to query search API
+  * Checks for timeout and clears if preexisting
+  * Clears prior searched books array
+  * Sets status to 'Searching...'
+  * Exits if query is empty
+  * Displays 'No Books Found' if API returns with error
+  */
   searchBooks = (query) => {
     if (this.state.typingTimeout) {
        clearTimeout(this.state.typingTimeout);
@@ -64,12 +70,11 @@ class BooksApp extends React.Component {
     this.setState({
        searchedBooks: [],
        status: "Searching...",
-       typing: false,
        typingTimeout: setTimeout(() => {
          if (query.length > 0) {
            BooksAPI.search(query.trim()).then((books) => {
              if (books.error) {
-               this.setState({status: "No Books Found"});
+               this.setState({status: 'No Books Found'});
              } else {
                this.setState({
                  searchedBooks: books.map((searchedBook) => {

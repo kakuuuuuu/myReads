@@ -8,6 +8,10 @@ class BookDetails extends Component {
     book: {}
   }
 
+  /*
+  * Loads when component mounts
+  * Fetches book via id
+  */
   componentDidMount() {
     BooksAPI.get(this.props.match.params.id).then((book => {
       this.setState({ book })
