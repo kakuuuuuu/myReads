@@ -46,15 +46,16 @@ An extra component created to take advantage of the unused data provided with ea
 ### ListBooks.js
 
 Component used to display all books on shelves: Currently Reading, Want to Read and Read.  Uses Book component to render previews for each book on shelf.  Books displayed by filtering the shelf attribute of each book object rather than creating separate arrays for each shelf.  Upon selecting a new shelf to move a book to, the shelf attribute is updated with the update API as well as the state. The component takes in the following parameters:
-- books: Array containing all book objects that are currently shelved
-- onUpdate: Function to pass down to child Book component to update a book's shelf
+- books: Array containing all book objects that are currently shelved.
+- onUpdate: Function to pass down to child Book component to update a book's shelf.
 
 ### Search.js
 
 Component used to search books in database by query.  Text input will update the query in state.  Typing is buffered by setTimeout to prevent excess calls to search API and to prevent searching until the user has completed their input.  Upon successful query, (no errors, results returned) searchedBooks array from the parent will be updated and rendered with the Book component.  Each new search empties the searchedBooks array to clear prior searches.  Upon failed query, (no results) "No Books Found," will be displayed.  The component takes in the following parameters:
-- books: Array from parent [searchedBooks] used to contain search results
+- books: Array from parent [searchedBooks] used to contain search results.
 - onSearch: Function passed down by parent to trigger search API upon query change.
 - onUpdate: Function to pass down to child Book component to update a book's shelf.  In this case the function will also add the book from search results to shelved books in parent state.
+- clearSearch: Function passed down by parent to clear search results and status when component is unmounted.
 
 ## Backend Server
 
