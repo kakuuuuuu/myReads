@@ -11,6 +11,7 @@ class BookDetails extends Component {
   /*
   * Loads when component mounts
   * Fetches book via id
+  * Stores book object in state
   */
   componentDidMount() {
     BooksAPI.get(this.props.match.params.id).then((book => {

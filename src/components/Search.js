@@ -17,6 +17,9 @@ class Search extends Component {
     status: ''
   };
 
+  componentWillUnmount() {
+    this.props.clearSearch();
+  }
   /*
   * Updates state.query to match input
   * query - String used to query search API

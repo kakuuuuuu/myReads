@@ -71,8 +71,8 @@ class BooksApp extends React.Component {
     if (this.state.typingTimeout) {
        clearTimeout(this.state.typingTimeout);
     }
+    this.clearSearch();
     this.setState({
-       searchedBooks: [],
        status: "Searching...",
        typingTimeout: setTimeout(() => {
          if (query.length > 0) {
@@ -93,11 +93,13 @@ class BooksApp extends React.Component {
                })
             }
            })
-         } else {
-           this.setState({status: ''});
          }
        }, 1000)
     });
+  }
+
+  clearSearch = () => {
+    this.setState({searchedBooks: [], status: ''})
   }
 
   render() {
@@ -118,6 +120,7 @@ class BooksApp extends React.Component {
               history.push('/')
             }}
             status={this.state.status}
+            clearSearch={this.clearSearch}
           />
         )}/>
         <Route path='/book/:id' component={BookDetails}/>

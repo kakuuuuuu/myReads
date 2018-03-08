@@ -17,7 +17,7 @@
         ├── Book.js # Book component to display thumbnail, title and author
         ├── BookDetails.js # Book component to display further details provided by API like: description and rating
         ├── ListBooks.js # Component to display all books on 3 shelves
-        ├── Search.js # Component to search and display books in database by query
+        └── Search.js # Component to search and display books in database by query
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
