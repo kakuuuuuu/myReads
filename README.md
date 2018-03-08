@@ -1,15 +1,7 @@
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
-
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
-
-## TL;DR
-
-To get started developing right away:
-
 * install all project dependencies with `npm install`
-* start the development server with `npm start`
+* start the development server with `npm start` or `yarn start`
 
 ## What You're Getting
 ```bash
@@ -21,6 +13,11 @@ To get started developing right away:
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
+    ├── components
+        ├── Book.js # Book component to display thumbnail, title and author
+        ├── BookDetails.js # Book component to display further details provided by API like: description and rating
+        ├── ListBooks.js # Component to display all books on 3 shelves
+        ├── Search.js # Component to search and display books in database by query
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
@@ -32,8 +29,32 @@ To get started developing right away:
     ├── index.css # Global styles. You probably won't need to change anything here.
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```
+## Components
 
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
+Created a separate subdirectory to organize which files were components.  Descriptions of each individual component are as follows:
+
+### Book.js
+
+A simple component created to reduce redundancy as the same information is displayed multiple times not only on the main page, but also the search page.  Displays basic information for each book including the thumbnail (if it exists), the title and the author(s).  The component takes in the following parameters:
+- book: Object containing attributes/meta data for an individual book
+- onUpdate: Function passed down by parent to change the book's shelf.  In the case of the search page, the function also adds the book to the state array containing all shelved books.
+
+### BookDetails.js
+
+An extra component created to take advantage of the unused data provided with each book object. Displays thumbnail (if it exists), the title, category(s), author(s), description and rating.  Book id is passed via URL params instead of prop so users can share book URL.
+
+### ListBooks.js
+
+Component used to display all books on shelves: Currently Reading, Want to Read and Read.  Uses Book component to render previews for each book on shelf.  Books displayed by filtering the shelf attribute of each book object rather than creating separate arrays for each shelf.  Upon selecting a new shelf to move a book to, the shelf attribute is updated with the update API as well as the state. The component takes in the following parameters:
+- books: Array containing all book objects that are currently shelved
+- onUpdate: Function to pass down to child Book component to update a book's shelf
+
+### Search.js
+
+Component used to search books in database by query.  Text input will update the query in state.  Typing is buffered by setTimeout to prevent excess calls to search API and to prevent searching until the user has completed their input.  Upon successful query, (no errors, results returned) searchedBooks array from the parent will be updated and rendered with the Book component.  Each new search empties the searchedBooks array to clear prior searches.  Upon failed query, (no results) "No Books Found," will be displayed.  The component takes in the following parameters:
+- books: Array from parent [searchedBooks] used to contain search results
+- onSearch: Function passed down by parent to trigger search API upon query change.
+- onUpdate: Function to pass down to child Book component to update a book's shelf.  In this case the function will also add the book from search results to shelved books in parent state.
 
 ## Backend Server
 

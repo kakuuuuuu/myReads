@@ -62,6 +62,10 @@ class BooksApp extends React.Component {
   * Sets status to 'Searching...'
   * Exits if query is empty
   * Displays 'No Books Found' if API returns with error
+  * If no errors, retrieves books array from search API and cross references id with books on shelf
+  * If matched, shelf attribute added to book
+  * Stores books into state.searchedBooks array
+  * Empties status and sets 1000 millisecond timeout
   */
   searchBooks = (query) => {
     if (this.state.typingTimeout) {
